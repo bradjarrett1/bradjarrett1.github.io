@@ -1,0 +1,231 @@
+body, html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    overflow: hidden;
+    font-family: sans-serif;
+}
+
+.video-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+}
+
+#bg-video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.page {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+
+#start-btn {
+    padding: 15px 30px;
+    font-size: 24px;
+    color: white;
+    background-color: #007bff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+    box-shadow: 0 0 20px rgba(0, 123, 255, 0.5);
+    animation: pulse 2s infinite;
+}
+
+#start-btn:hover {
+    transform: scale(1.1);
+    box-shadow: 0 0 30px rgba(0, 123, 255, 0.8);
+}
+
+@keyframes pulse {
+    0% {
+        box-shadow: 0 0 20px rgba(0, 123, 255, 0.5);
+    }
+    50% {
+        box-shadow: 0 0 30px rgba(0, 123, 255, 0.8);
+    }
+    100% {
+        box-shadow: 0 0 20px rgba(0, 123, 255, 0.5);
+    }
+}
+
+.config-panel {
+    background-color: rgba(255, 255, 255, 0.8);
+    padding: 40px;
+    border-radius: 10px;
+    text-align: center;
+    width: 50%;
+}
+
+.version {
+    position: fixed;
+    top: 10px;
+    left: 10px;
+    color: white;
+    font-size: 16px;
+    z-index: 100;
+}
+
+.slider-container, .duration-container, .music-container {
+    margin-bottom: 20px;
+}
+
+.duration-btn, .music-btn {
+    padding: 10px 20px;
+    margin: 5px;
+    border: 1px solid #007bff;
+    background-color: white;
+    color: #007bff;
+    cursor: pointer;
+    transition: transform 0.2s, background-color 0.2s, color 0.2s;
+}
+
+.duration-btn:hover, .music-btn:hover {
+    transform: scale(1.1);
+}
+
+.duration-btn.selected, .music-btn.selected {
+    background-color: #007bff;
+    color: white;
+}
+
+#start-breathing-btn {
+    padding: 15px 30px;
+    font-size: 24px;
+    color: white;
+    background-color: #28a745;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+#start-breathing-btn:hover {
+    transform: scale(1.1);
+}
+
+.timer {
+    position: absolute;
+    top: 40px;
+    left: 20px;
+    color: #ffab40;
+    font-weight: bold;
+    font-size: 24px;
+}
+
+.breathing-square {
+    width: 300px;
+    height: 300px;
+    position: relative;
+}
+
+.border {
+    position: absolute;
+    background-color: white;
+    opacity: 0.2;
+    transition: opacity 0.5s;
+}
+
+.border.top, .border.bottom {
+    width: 100%;
+    height: 5px;
+}
+
+.border.left, .border.right {
+    width: 5px;
+    height: 100%;
+}
+
+.border.top { top: 0; left: 0; }
+.border.right { top: 0; right: 0; }
+.border.bottom { bottom: 0; left: 0; }
+.border.left { top: 0; left: 0; }
+
+.pacer-dot {
+    width: 20px;
+    height: 20px;
+    background-color: #007bff;
+    border-radius: 50%;
+    position: absolute;
+    top: 0; /* Aligns to the top-left for transform origin */
+    left: 0;
+    box-shadow: 0 0 20px #007bff, 0 0 30px #007bff;
+    animation: pulse 2s infinite;
+}
+
+.comet-trail {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 18px;
+    height: 18px;
+    background-color: #0056b3; /* Darker blue */
+    border-radius: 50%;
+    transition: opacity 0.5s;
+}
+
+.phase-countdown {
+    color: white;
+    font-size: 24px;
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.phase-text {
+    color: white;
+    font-size: 36px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.controls {
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+}
+
+.controls button {
+    padding: 10px 20px;
+    margin: 5px;
+    border: 2px solid #ffab40;
+    background-color: white;
+    color: #ffab40;
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+.controls button:hover {
+    transform: scale(1.1);
+}
+
+.completion-message {
+    text-align: center;
+    color: white;
+}
+
+.completion-message button {
+    padding: 10px 20px;
+    margin: 10px;
+    border: 1px solid white;
+    background-color: transparent;
+    color: white;
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+.completion-message button:hover {
+    transform: scale(1.1);
+}

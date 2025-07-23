@@ -1,0 +1,1 @@
+Fix: Correct timer and pacer initialization and implement comprehensive state reset

@@ -1,0 +1,20 @@
+v3 is mostly working an beautiful-
+
+next additions
+-stable non swiveling video
+-ensure pausing and dots are working correctly
+-remove the highlighting darker opacity lines
+-"no music" as the default option at the main menu
+-second integers showing inside the square while box breathing is running
+-sounds for inhale, hold, exhale, hold- possibly spoken audio- could record myself
+-ability to turn guided voice off
+-3-4 options for backgrounds- dessert, grasslands, ocean, river and mountain forest, cliff side-big sur
+
+
+big addition ideas
+-journal entry at the end. Make it connect to AI for discussion then post to notion or keep in database?
+-therapist chat- have default questions and responses for checking your health- CBT style. Ensure it has memory to better assist
+-Make all this work in XR as a PWA or website
+-Convert this to a full XR meta quest 3 app with some XR specific functionalities
+-describe your dream background or music to AI and it will create them, let you preview them, then start your meditation, they will save for future use in custom backgrounds
+-New breathing techniques 4-7-8, holotropic, breath holds (breathing with sandy style), Wim Hof

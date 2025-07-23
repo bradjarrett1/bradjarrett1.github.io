@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Box Breathing</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="version">Version 1.5</div>
+    <div class="video-container">
+        <video autoplay muted loop id="bg-video">
+            <source src="../assets/video/Serene-river-mountains.mp4" type="video/mp4">
+        </video>
+    </div>
+    <div id="landing-page" class="page">
+        <button id="start-btn">Let's get started!</button>
+    </div>
+    <div id="config-page" class="page" style="display: none;">
+        <div class="config-panel">
+            <div class="slider-container">
+                <label for="pace-slider">Pace: <span id="pace-value">5</span>s</label>
+                <input type="range" id="pace-slider" min="3" max="7" value="5">
+            </div>
+            <div class="duration-container">
+                <button class="duration-btn" data-duration="120">2 min</button>
+                <button class="duration-btn" data-duration="300">5 min</button>
+                <button class="duration-btn" data-duration="420">7 min</button>
+                <button class="duration-btn" data-duration="600">10 min</button>
+                <button class="duration-btn" data-duration="900">15 min</button>
+            </div>
+            <div class="music-container">
+                <button class="music-btn" data-music="none">No Music</button>
+                <button class="music-btn" data-music="gentle-piano">Gentle Piano</button>
+                <button class="music-btn" data-music="river-sounds">Serene River</button>
+                <button class="music-btn" data-music="ambient-chimes">Ambient Chimes</button>
+            </div>
+            <div class="instructions-container">
+                <label for="instructions-toggle">Spoken Instructions:</label>
+                <input type="checkbox" id="instructions-toggle">
+            </div>
+            <button id="start-breathing-btn">Start</button>
+        </div>
+    </div>
+    <div id="breathing-page" class="page" style="display: none;">
+        <div class="timer">Time Remaining: <span id="time-remaining"></span></div>
+        <div class="breathing-square">
+            <div class="border top"></div>
+            <div class="border right"></div>
+            <div class="border bottom"></div>
+            <div class="border left"></div>
+            <div class="pacer-dot"></div>
+            <div class="phase-countdown"></div>
+            <div class="phase-text"></div>
+        </div>
+        <div class="controls">
+            <button id="pause-btn">Pause</button>
+            <button id="stop-btn">Stop</button>
+            <button id="toggle-instructions-btn">Mute Instructions</button>
+        </div>
+    </div>
+    <div id="completion-page" class="page" style="display: none;">
+        <div class="completion-message">
+            <h2>Good job!</h2>
+            <p>You treated yourself well today! Don’t forget to come back tomorrow.</p>
+            <button id="repeat-btn">Repeat with same settings</button>
+            <button id="main-menu-btn">Return to main menu</button>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
