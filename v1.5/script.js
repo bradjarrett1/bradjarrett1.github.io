@@ -48,9 +48,12 @@ document.addEventListener('DOMContentLoaded', () => {
         'phase-inhale': new Audio('../assets/audio/phase-sounds/Inhale.mp3'),
         'phase-hold': new Audio('../assets/audio/phase-sounds/Hold.mp3'),
         'phase-exhale': new Audio('../assets/audio/phase-sounds/Exhale.mp3'),
-        'instruction-inhale': new Audio('../assets/audio/spoken-instructions/Inhale Instruction.mp3'),
-        'instruction-hold': new Audio('../assets/audio/spoken-instructions/Hold Instruction.mp3'),
-        'instruction-exhale': new Audio('../assets/audio/spoken-instructions/Exhale Instruction.mp3'),
+        'instruction-inhale': new Audio('../assets/audio/spoken-instructions/Inhale-Instruction.mp3'),
+        'instruction-hold': new Audio('../assets/audio/spoken-instructions/Hold-Instruction.mp3'),
+        'instruction-exhale': new Audio('../assets/audio/spoken-instructions/Exhale-Instruction.mp3'),
+        'instruction-inhale-v2': new Audio('../assets/audio/spoken-instructions/inhale-Instruction v2.mp3'),
+        'instruction-hold-v2': new Audio('../assets/audio/spoken-instructions/Hold-Instruction v2.mp3'),
+        'instruction-exhale-v2': new Audio('../assets/audio/spoken-instructions/exhale-Instruction v2.mp3'),
     };
 
     const phases = ['Inhale', 'Hold', 'Exhale', 'Hold'];
@@ -134,7 +137,8 @@ document.addEventListener('DOMContentLoaded', () => {
             isPaused: false,
             animationFrameId: null,
             trail: [],
-            lastPhase: -1
+            lastPhase: -1,
+            cycleCount: 0
         };
 
         for (let i = 0; i < 15; i++) {
@@ -278,21 +282,53 @@ document.addEventListener('DOMContentLoaded', () => {
         borders[borderOrder[currentPhase]].style.opacity = '1';
 
         if (sessionState.lastPhase !== currentPhase) {
+            if (currentPhase === 0) {
+                sessionState.cycleCount++;
+            }
             sessionState.lastPhase = currentPhase;
             playPhaseSounds(currentPhase);
         }
     }
 
     function playPhaseSounds(phase) {
+        // Play the basic phase sound (chime) every time
         if (phase === 0) {
             audio['phase-inhale'].play();
-            if (config.instructions) audio['instruction-inhale'].play();
         } else if (phase === 1 || phase === 3) {
             audio['phase-hold'].play();
-            if (config.instructions) audio['instruction-hold'].play();
         } else if (phase === 2) {
             audio['phase-exhale'].play();
-            if (config.instructions) audio['instruction-exhale'].play();
+        }
+
+        // If instructions are off, we're done
+        if (!config.instructions) return;
+
+        let instructionKey;
+        const cycle = sessionState.cycleCount;
+
+        if (cycle === 1) {
+            // First cycle: Play original instructions
+            if (phase === 0) instructionKey = 'instruction-inhale';
+            else if (phase === 1 || phase === 3) instructionKey = 'instruction-hold';
+            else if (phase === 2) instructionKey = 'instruction-exhale';
+        } else if (cycle === 2) {
+            // Second cycle: Play v2 instructions
+            if (phase === 0) instructionKey = 'instruction-inhale-v2';
+            else if (phase === 1 || phase === 3) instructionKey = 'instruction-hold-v2';
+            else if (phase === 2) instructionKey = 'instruction-exhale-v2';
+        } else {
+            // Subsequent cycles: Play randomly
+            const useV2 = Math.random() < 0.5;
+            if (phase === 0) instructionKey = useV2 ? 'instruction-inhale-v2' : 'instruction-inhale';
+            else if (phase === 1 || phase === 3) instructionKey = useV2 ? 'instruction-hold-v2' : 'instruction-hold';
+            else if (phase === 2) instructionKey = useV2 ? 'instruction-exhale-v2' : 'instruction-exhale';
+        }
+
+        if (instructionKey && audio[instructionKey]) {
+            // A delay can help prevent sounds from overlapping too much
+            setTimeout(() => {
+                audio[instructionKey].play();
+            }, 150);
         }
     }
 
