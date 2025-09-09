@@ -64,6 +64,8 @@ body, html {
     border-radius: 10px;
     text-align: center;
     width: 50%;
+    max-width: 600px;
+    min-width: 320px;
 }
 
 .version {
@@ -126,6 +128,8 @@ body, html {
     width: 300px;
     height: 300px;
     position: relative;
+    max-width: 80vw;
+    max-height: 80vw;
 }
 
 .border {
@@ -228,4 +232,70 @@ body, html {
 
 .completion-message button:hover {
     transform: scale(1.1);
+}
+
+/* Mobile responsiveness */
+@media (max-width: 768px) {
+    .config-panel {
+        width: 90%;
+        padding: 20px;
+        margin: 10px;
+    }
+    
+    .breathing-square {
+        width: 250px;
+        height: 250px;
+    }
+    
+    .timer {
+        font-size: 18px;
+        top: 20px;
+        left: 10px;
+    }
+    
+    .phase-text {
+        font-size: 28px;
+    }
+    
+    .phase-countdown {
+        font-size: 20px;
+    }
+    
+    .controls {
+        bottom: 10px;
+        right: 10px;
+    }
+    
+    .controls button {
+        padding: 8px 16px;
+        font-size: 14px;
+    }
+    
+    .duration-btn, .music-btn {
+        padding: 8px 16px;
+        margin: 3px;
+        font-size: 14px;
+    }
+    
+    #start-btn, #start-breathing-btn {
+        font-size: 20px;
+        padding: 12px 24px;
+    }
+}
+
+@media (max-width: 480px) {
+    .breathing-square {
+        width: 200px;
+        height: 200px;
+    }
+    
+    .config-panel {
+        padding: 15px;
+    }
+    
+    .duration-btn, .music-btn {
+        display: block;
+        width: 100%;
+        margin: 5px 0;
+    }
 }

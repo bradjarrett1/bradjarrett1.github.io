@@ -41,20 +41,32 @@ document.addEventListener('DOMContentLoaded', () => {
 
     let sessionState = {};
 
-    const audio = {
-        'gentle-piano': new Audio('../assets/audio/gentle-piano.mp3'),
-        'river-sounds': new Audio('../assets/audio/river-sounds.mp3'),
-        'ambient-chimes': new Audio('../assets/audio/ambient-chimes.mp3'),
-        'phase-inhale': new Audio('../assets/audio/phase-sounds/Inhale.mp3'),
-        'phase-hold': new Audio('../assets/audio/phase-sounds/Hold.mp3'),
-        'phase-exhale': new Audio('../assets/audio/phase-sounds/Exhale.mp3'),
-        'instruction-inhale': new Audio('../assets/audio/spoken-instructions/Inhale-Instruction.mp3'),
-        'instruction-hold': new Audio('../assets/audio/spoken-instructions/Hold-Instruction.mp3'),
-        'instruction-exhale': new Audio('../assets/audio/spoken-instructions/Exhale-Instruction.mp3'),
-        'instruction-inhale-v2': new Audio('../assets/audio/spoken-instructions/inhale-Instruction v2.mp3'),
-        'instruction-hold-v2': new Audio('../assets/audio/spoken-instructions/Hold-Instruction v2.mp3'),
-        'instruction-exhale-v2': new Audio('../assets/audio/spoken-instructions/exhale-Instruction v2.mp3'),
+    // Initialize audio with error handling
+    const audio = {};
+    const audioFiles = {
+        'gentle-piano': './assets/audio/gentle-piano.mp3',
+        'river-sounds': './assets/audio/river-sounds.mp3',
+        'ambient-chimes': './assets/audio/ambient-chimes.mp3',
+        'phase-inhale': './assets/audio/phase-sounds/Inhale.mp3',
+        'phase-hold': './assets/audio/phase-sounds/Hold.mp3',
+        'phase-exhale': './assets/audio/phase-sounds/Exhale.mp3',
+        'instruction-inhale': './assets/audio/spoken-instructions/Inhale-Instruction.mp3',
+        'instruction-hold': './assets/audio/spoken-instructions/Hold-Instruction.mp3',
+        'instruction-exhale': './assets/audio/spoken-instructions/Exhale-Instruction.mp3',
+        'instruction-inhale-v2': './assets/audio/spoken-instructions/Inhale-Instruction v2.mp3',
+        'instruction-hold-v2': './assets/audio/spoken-instructions/Hold-Instruction v2.mp3',
+        'instruction-exhale-v2': './assets/audio/spoken-instructions/Exhale-Instruction v2.mp3',
     };
+
+    // Load audio files with error handling
+    Object.keys(audioFiles).forEach(key => {
+        audio[key] = new Audio(audioFiles[key]);
+        audio[key].addEventListener('error', () => {
+            console.warn(`Failed to load audio file: ${audioFiles[key]}`);
+        });
+        // Preload audio for better performance
+        audio[key].preload = 'auto';
+    });
 
     const phases = ['Inhale', 'Hold', 'Exhale', 'Hold'];
 
@@ -114,7 +126,9 @@ document.addEventListener('DOMContentLoaded', () => {
     function playSample(music) {
         Object.values(audio).forEach(a => { a.pause(); a.currentTime = 0; });
         if (audio[music]) {
-            audio[music].play();
+            audio[music].play().catch(error => {
+                console.warn(`Failed to play sample audio: ${music}`, error);
+            });
         }
     }
 
@@ -150,9 +164,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
         if (config.music !== 'none') {
             const currentAudio = audio[config.music];
-            currentAudio.loop = true;
-            currentAudio.currentTime = 0;
-            currentAudio.play();
+            if (currentAudio) {
+                currentAudio.loop = true;
+                currentAudio.currentTime = 0;
+                currentAudio.play().catch(error => {
+                    console.warn(`Failed to play background music: ${config.music}`, error);
+                });
+            }
         }
 
         pauseBtn.textContent = 'Pause';
@@ -190,8 +208,10 @@ document.addEventListener('DOMContentLoaded', () => {
             pauseBtn.textContent = 'Resume';
         } else {
             sessionState.totalPausedTime += performance.now() - sessionState.pauseStartTime;
-            if (config.music !== 'none') {
-                audio[config.music].play();
+            if (config.music !== 'none' && audio[config.music]) {
+                audio[config.music].play().catch(error => {
+                    console.warn(`Failed to resume background music: ${config.music}`, error);
+                });
             }
             pauseBtn.textContent = 'Pause';
             sessionState.animationFrameId = requestAnimationFrame(animationLoop);
@@ -261,12 +281,18 @@ document.addEventListener('DOMContentLoaded', () => {
         const pacerY = y - (dotSize / 2);
         pacerDot.style.transform = `translate(${pacerX}px, ${pacerY}px)`;
 
-        // Update trail
+        // Update trail with better performance
         sessionState.trail.forEach((t, index) => {
-            setTimeout(() => {
-                t.style.transform = `translate(${pacerX}px, ${pacerY}px)`;
-                t.style.opacity = 1 - (index / sessionState.trail.length);
-            }, index * 25); // Stagger the trail
+            const delay = index * 25;
+            const opacity = 1 - (index / sessionState.trail.length);
+            
+            // Use requestAnimationFrame for smoother animation
+            requestAnimationFrame(() => {
+                setTimeout(() => {
+                    t.style.transform = `translate(${pacerX}px, ${pacerY}px)`;
+                    t.style.opacity = opacity;
+                }, delay);
+            });
         });
     }
 
@@ -292,12 +318,19 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function playPhaseSounds(phase) {
         // Play the basic phase sound (chime) every time
+        let phaseAudio;
         if (phase === 0) {
-            audio['phase-inhale'].play();
+            phaseAudio = audio['phase-inhale'];
         } else if (phase === 1 || phase === 3) {
-            audio['phase-hold'].play();
+            phaseAudio = audio['phase-hold'];
         } else if (phase === 2) {
-            audio['phase-exhale'].play();
+            phaseAudio = audio['phase-exhale'];
+        }
+
+        if (phaseAudio) {
+            phaseAudio.play().catch(error => {
+                console.warn(`Failed to play phase sound for phase ${phase}`, error);
+            });
         }
 
         // If instructions are off, we're done
@@ -327,7 +360,9 @@ document.addEventListener('DOMContentLoaded', () => {
         if (instructionKey && audio[instructionKey]) {
             // A delay can help prevent sounds from overlapping too much
             setTimeout(() => {
-                audio[instructionKey].play();
+                audio[instructionKey].play().catch(error => {
+                    console.warn(`Failed to play instruction sound: ${instructionKey}`, error);
+                });
             }, 150);
         }
     }
