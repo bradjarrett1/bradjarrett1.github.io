@@ -155,7 +155,7 @@ document.addEventListener('DOMContentLoaded', () => {
             cycleCount: 0
         };
 
-        for (let i = 0; i < 15; i++) {
+        for (let i = 0; i < 5; i++) {
             const t = document.createElement('div');
             t.className = 'comet-trail';
             breathingSquare.appendChild(t);
@@ -173,6 +173,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         }
 
+        pacerDot.style.opacity = 1;
         pauseBtn.textContent = 'Pause';
         setTimeout(() => {
             sessionState.animationFrameId = requestAnimationFrame(animationLoop);
@@ -285,16 +286,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Update trail with better performance
         sessionState.trail.forEach((t, index) => {
-            const delay = index * 25;
+            const delay = index * 50; // Increased delay for a more pronounced effect
             const opacity = 1 - (index / sessionState.trail.length);
             
-            // Use requestAnimationFrame for smoother animation
-            requestAnimationFrame(() => {
-                setTimeout(() => {
-                    t.style.transform = `translate(${pacerX}px, ${pacerY}px)`;
-                    t.style.opacity = opacity;
-                }, delay);
-            });
+            setTimeout(() => {
+                t.style.transform = `translate(${pacerX}px, ${pacerY}px)`;
+                t.style.opacity = opacity;
+            }, delay);
         });
     }
 
