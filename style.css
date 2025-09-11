@@ -77,8 +77,18 @@ body, html {
     z-index: 100;
 }
 
-.slider-container, .duration-container, .music-container {
+.slider-container, .duration-container, .music-container, .instructions-container {
     margin-bottom: 20px;
+}
+
+.instructions-container {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-top: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .duration-btn, .music-btn {
@@ -160,7 +170,7 @@ body, html {
     background-color: #007bff;
     border-radius: 50%;
     position: absolute;
-    top: 0; /* Aligns to the top-left for transform origin */
+    bottom: 0; /* Aligns to the bottom-left for transform origin */
     left: 0;
     box-shadow: 0 0 20px #007bff, 0 0 30px #007bff;
     animation: pulse 2s infinite;
@@ -281,6 +291,10 @@ body, html {
         font-size: 20px;
         padding: 12px 24px;
     }
+
+    .instructions-container {
+        padding: 8px;
+    }
 }
 
 @media (max-width: 480px) {
@@ -297,5 +311,9 @@ body, html {
         display: block;
         width: 100%;
         margin: 5px 0;
+    }
+
+    .instructions-container {
+        padding: 5px;
     }
 }

@@ -174,7 +174,9 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         pauseBtn.textContent = 'Pause';
-        sessionState.animationFrameId = requestAnimationFrame(animationLoop);
+        setTimeout(() => {
+            sessionState.animationFrameId = requestAnimationFrame(animationLoop);
+        }, 100);
     }
 
     function stopBreathingSession() {
@@ -189,11 +191,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
 
-        if (config.music !== 'none') {
-            setTimeout(() => {
-                audio[config.music].pause();
-            }, 20000);
-        }
+        
 
         cleanupPreviousSession();
     }
@@ -277,6 +275,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 break;
         }
 
+        // Clamp the values to ensure the dot stays within the bounds
+        x = Math.max(0, Math.min(x, squareSize));
+        y = Math.max(0, Math.min(y, squareSize));
+
         const pacerX = x - (dotSize / 2);
         const pacerY = y - (dotSize / 2);
         pacerDot.style.transform = `translate(${pacerX}px, ${pacerY}px)`;
@@ -298,7 +300,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function updateUI(currentPhase, sideDuration, cycleProgress) {
         phaseText.textContent = phases[currentPhase];
-        const remainingInPhase = Math.ceil((sideDuration - (cycleProgress % sideDuration)) / 1000);
+        const remainingInPhase = Math.round((sideDuration - (cycleProgress % sideDuration)) / 1000);
         phaseCountdown.textContent = remainingInPhase;
 
         const borderOrder = ['left', 'top', 'right', 'bottom'];
