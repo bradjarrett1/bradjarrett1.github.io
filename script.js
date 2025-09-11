@@ -158,6 +158,7 @@ document.addEventListener('DOMContentLoaded', () => {
         for (let i = 0; i < 5; i++) {
             const t = document.createElement('div');
             t.className = 'comet-trail';
+            t.style.opacity = 0;
             breathingSquare.appendChild(t);
             sessionState.trail.push(t);
         }
