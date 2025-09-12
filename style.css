@@ -318,3 +318,50 @@ body, html {
         padding: 5px;
     }
 }
+
+.video-choices {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.video-choice {
+    cursor: pointer;
+    padding: 5px;
+    border: 2px solid transparent;
+    border-radius: 5px;
+    text-align: center;
+    transition: transform 0.2s, border-color 0.2s;
+    color: #333;
+}
+
+.video-choice:hover {
+    transform: scale(1.05);
+}
+
+.video-choice.selected {
+    border-color: #007bff;
+}
+
+.video-choice .thumbnail {
+    width: 120px;
+    height: 70px;
+    background-color: #ccc;
+    border-radius: 4px;
+    margin-bottom: 5px;
+}
+
+#thumb-river {
+    background-color: #a4c4b5;
+}
+#thumb-big-sur {
+    background-color: #f0e68c;
+}
+#thumb-foggy-forest {
+    background-color: #d3d3d3;
+}
+
+.video-choice span {
+    font-size: 14px;
+}
