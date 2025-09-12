@@ -11,6 +11,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const paceValue = document.getElementById('pace-value');
     const durationBtns = document.querySelectorAll('.duration-btn');
     const musicBtns = document.querySelectorAll('.music-btn');
+    const videoChoiceBtns = document.querySelectorAll('.video-choice-btn');
     const instructionsToggle = document.getElementById('instructions-toggle');
     const startBreathingBtn = document.getElementById('start-breathing-btn');
     const timeRemainingEl = document.getElementById('time-remaining');
@@ -23,6 +24,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const repeatBtn = document.getElementById('repeat-btn');
     const mainMenuBtn = document.getElementById('main-menu-btn');
     const breathingSquare = document.querySelector('.breathing-square');
+    const bgVideo = document.getElementById('bg-video');
 
     const borders = {
         top: document.querySelector('.border.top'),
@@ -36,7 +38,8 @@ document.addEventListener('DOMContentLoaded', () => {
         duration: 120,
         pace: 5,
         music: 'none',
-        instructions: false
+        instructions: false,
+        video: './assets/video/Serene-river-mountains.mp4'
     };
 
     let sessionState = {};
@@ -114,6 +117,19 @@ document.addEventListener('DOMContentLoaded', () => {
 
     instructionsToggle.addEventListener('change', (e) => {
         config.instructions = e.target.checked;
+    });
+
+    videoChoiceBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            videoChoiceBtns.forEach(b => b.classList.remove('selected'));
+            btn.classList.add('selected');
+            config.video = btn.dataset.video;
+            
+            const videoSource = bgVideo.querySelector('source');
+            videoSource.src = config.video;
+            bgVideo.load();
+            bgVideo.play();
+        });
     });
 
     // Functions
@@ -379,4 +395,5 @@ document.addEventListener('DOMContentLoaded', () => {
     paceValue.textContent = config.pace;
     durationBtns[1].classList.add('selected'); // Default to 5 min
     musicBtns[0].classList.add('selected'); // Default to No Music
+    videoChoiceBtns[0].classList.add('selected'); // Default to Serene River
 });
