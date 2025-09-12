@@ -281,8 +281,10 @@ document.addEventListener('DOMContentLoaded', () => {
         x = Math.max(0, Math.min(x, squareSize));
         y = Math.max(0, Math.min(y, squareSize));
 
+        // Since the dot is positioned at bottom: 0; left: 0 in CSS,
+        // we need to adjust the transform to account for this initial position
         const pacerX = x - (dotSize / 2);
-        const pacerY = y - (dotSize / 2);
+        const pacerY = (squareSize - y) - (dotSize / 2);
         pacerDot.style.transform = `translate(${pacerX}px, ${pacerY}px)`;
 
         // Update trail with better performance
