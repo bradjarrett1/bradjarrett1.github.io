@@ -281,10 +281,14 @@ document.addEventListener('DOMContentLoaded', () => {
         x = Math.max(0, Math.min(x, squareSize));
         y = Math.max(0, Math.min(y, squareSize));
 
-        // Since the dot is positioned at bottom: 0; left: 0 in CSS,
-        // we adjust the transform. The y-transform must be negative to move up.
-        const pacerX = x;
-        const pacerY = y - squareSize;
+        // To center the dot on the line, we offset by half the dot's size.
+        const pacerX = x - (dotSize / 2);
+
+        // The Y transform is more complex due to the `bottom: 0` CSS.
+        // We want the dot's center to be at `y_line` (from the bottom).
+        // The formula is: pacerY = (dotSize / 2) - y_line
+        const y_coord_from_bottom = squareSize - y;
+        const pacerY = (dotSize / 2) - y_coord_from_bottom;
         pacerDot.style.transform = `translate(${pacerX}px, ${pacerY}px)`;
 
         // Update trail with better performance
