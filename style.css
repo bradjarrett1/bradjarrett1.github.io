@@ -347,19 +347,9 @@ body, html {
 .video-choice .thumbnail {
     width: 120px;
     height: 70px;
-    background-color: #ccc;
+    object-fit: cover; /* Ensures the image covers the area without distortion */
     border-radius: 4px;
     margin-bottom: 5px;
-}
-
-#thumb-river {
-    background-color: #a4c4b5;
-}
-#thumb-big-sur {
-    background-color: #f0e68c;
-}
-#thumb-foggy-forest {
-    background-color: #d3d3d3;
 }
 
 .video-choice span {
