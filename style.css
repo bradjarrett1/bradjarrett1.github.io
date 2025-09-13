@@ -356,3 +356,15 @@ body, html {
 .video-choice span {
     font-size: 14px;
 }
+
+/* Responsive layout for video choices */
+@media (max-width: 650px) {
+    .video-choices {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .video-choice {
+        margin-bottom: 15px; /* Add some space between stacked items */
+    }
+}
