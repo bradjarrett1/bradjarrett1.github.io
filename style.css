@@ -331,7 +331,9 @@ body, html {
     padding: 5px;
     border: 3px solid transparent;
     border-radius: 8px;
-    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     transition: transform 0.2s, border-color 0.2s, background-color 0.2s;
     color: #333;
 }
