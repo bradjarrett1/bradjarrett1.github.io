@@ -35,7 +35,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // App State
     let config = {
-        duration: 120,
+        duration: 300,
         pace: 5,
         music: 'none',
         instructions: false,
